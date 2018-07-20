@@ -70,6 +70,9 @@ class AnsibleJSONEncoder(json.JSONEncoder):
         else:
             return super(AnsibleJSONEncoder, self).default(o)
 
+def flatten(a):
+    return itertools.chain(*a)
+
 def to_yaml(a, *args, **kw):
     '''Make verbose, human readable yaml'''
     transformed = yaml.dump(a, Dumper=AnsibleDumper, allow_unicode=True, **kw)
@@ -462,6 +465,7 @@ class FilterModule(object):
             # list
             # version comparison
             'version_compare': version_compare,
+            'flatten' : flatten,
 
             # random stuff
             'random': rand,
